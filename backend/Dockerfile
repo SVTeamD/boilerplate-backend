@@ -7,6 +7,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /backend
 COPY requirements.txt /backend/
 
+RUN apk add build-base
 RUN apk add libressl-dev libffi-dev gcc musl-dev gcc python3-dev musl-dev zlib-dev mariadb-dev mariadb-client jpeg-dev #--(5.2)
 
 RUN pip install --upgrade pip
