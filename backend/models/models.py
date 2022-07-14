@@ -36,7 +36,7 @@ class Menu(Base):  # 메뉴 테이블 생성
 
 
 class Order(Base):  # 메뉴 주문하기
-    __tablename__ = "order"
+    __tablename__ = "orders"
 
     order_id = Column(Integer, primary_key=True, index=True)  # PK
     customer_id = Column(Integer, ForeignKey("customer_id"), index=True)  # FK1
@@ -47,28 +47,28 @@ class Order(Base):  # 메뉴 주문하기
 
 
 class Category(Base):  # 가게 카테고리
-    __tablename__ = "category"
+    __tablename__ = "categories"
 
     category_id = Column(Integer, primary_key=True, index=True)  # PK
     category_name = Column(String(255), index=True)
 
 
 class Merchant(Base):  # Merchant
-    __tablename__ = "merchant"
+    __tablename__ = "merchants"
 
     category_id = Column(Integer, primary_key=True, index=True)  # PK
     user_id = Column(Integer, ForeignKey("user_id"), index=True)  # FK1
 
 
 class Customer(Base):  # Customer
-    __tablename__ = "Customer"
+    __tablename__ = "Customers"
 
     customer_id = Column(Integer, primary_key=True, index=True)  # PK
     user_id = Column(Integer, ForeignKey("user_id"), index=True)  # FK1
 
 
 class User(Base):  # User
-    __tablename__ = "order"
+    __tablename__ = "users"
 
     user_id = Column(Integer, primary_key=True, index=True)  # PK
     name = Column(String(255), index=True)
