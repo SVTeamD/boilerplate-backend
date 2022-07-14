@@ -44,3 +44,6 @@ class Order(Base):  # 메뉴 주문하기
     order_datetime = Column(Integer)
     order_is_takeout = Column(Boolean)
     order_cost = Column(Integer)
+
+class Store(Base): #가게 등록하기
+    __tablename__ = "stores"
