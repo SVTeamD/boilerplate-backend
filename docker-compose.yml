@@ -19,7 +19,9 @@ services:
     restart: always
     ports:
       - 8080:8000
-    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--reload"]
+    command: >
+      ash -c "python wait_for_mysql.py 
+      && uvicorn main:app --host 0.0.0.0 --reload"
     volumes:
       - ./backend/:/backend/
     expose:

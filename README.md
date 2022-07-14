@@ -4,7 +4,7 @@ This is a backend setup for SVTeamD.
 
 ## Description 
 - Back-end: [Fastapi](https://fastapi.tiangolo.com)
-- Front-end: [React](https://reactjs.org)
+- Front-end: [Flutter](https://flutter.dev)
 - Database: [MySQL](https://www.mysql.com)
 
 ## Installation 

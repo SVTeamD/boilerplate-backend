@@ -24,3 +24,11 @@ class Item(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="items")
+
+class Menu(Base):
+    __tablename__ = "menus"
+
+    id = Column(Integer, primary_key=True, index=True) # PK
+    menu_name = Column(String(255))
+    menu_cost = Column(Integer)
+    menu_photo_url = Column(String(2083))
