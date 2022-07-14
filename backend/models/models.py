@@ -44,3 +44,35 @@ class Order(Base):  # 메뉴 주문하기
     order_datetime = Column(Integer)
     order_is_takeout = Column(Boolean)
     order_cost = Column(Integer)
+
+
+class Category(Base):  # 가게 카테고리
+    __tablename__ = "category"
+
+    category_id = Column(Integer, primary_key=True, index=True)  # PK
+    category_name = Column(String(255), index=True)
+
+
+class Merchant(Base):  # Merchant
+    __tablename__ = "merchant"
+
+    category_id = Column(Integer, primary_key=True, index=True)  # PK
+    user_id = Column(Integer, ForeignKey("user_id"), index=True)  # FK1
+
+
+class Customer(Base):  # Customer
+    __tablename__ = "Customer"
+
+    customer_id = Column(Integer, primary_key=True, index=True)  # PK
+    user_id = Column(Integer, ForeignKey("user_id"), index=True)  # FK1
+
+
+class User(Base):  # User
+    __tablename__ = "order"
+
+    user_id = Column(Integer, primary_key=True, index=True)  # PK
+    name = Column(String(255), index=True)
+    gender = Column(String(255), index=True)
+    age_range = Column(String(255), index=True)
+    phone_num = Column(Integer)
+    created_date = Column(Integer)
