@@ -29,10 +29,10 @@ class Item(Base):
 class Menu(Base):  # 메뉴 테이블 생성
     __tablename__ = "menus"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(255), index=True)
-    cost = Column(Integer)
-    photo_url = Column(String(2083))
+    menu_id = Column(Integer, primary_key=True, index=True)
+    menu_name = Column(String(255), index=True)
+    menu_cost = Column(Integer)
+    menu_photo_url = Column(String(2083))
 
 
 class Order(Base):  # 메뉴 주문하기
