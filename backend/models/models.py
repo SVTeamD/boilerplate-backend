@@ -28,8 +28,8 @@ class Item(Base):
 class Menu(Base): # 메뉴 테이블 생성
     __tablename__ = "menus"
 
-    id = Columm(Integer, primary_key=True, index=True)
-    name = Columm(String(255), index=True)
-    cost = Columm(Integer)
-    photo_url = Columm(String(2083))
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255), index=True)
+    cost = Column(Integer)
+    photo_url = Column(String(2083))
     
