@@ -27,4 +27,8 @@ class Item(Base):
 
 class Menu(Base):
     __tablename__ = "menus"
-    
+
+    id = Column(Integer, primary_key=True, index=True) # PK
+    menu_name = Column(String(255))
+    menu_cost = Column(Integer)
+    menu_photo_url = Column(String(2083))
