@@ -33,4 +33,3 @@ class Menu(Base): # 메뉴 테이블 생성
     cost = Columm(Integer)
     photo_url = Columm(String(2083))
     
-    
