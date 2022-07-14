@@ -25,6 +25,12 @@ class Item(Base):
 
     owner = relationship("User", back_populates="items")
 
-class Menu(Base):
+class Menu(Base): # 메뉴 테이블 생성
     __tablename__ = "menus"
+
+    id = Columm(Integer, primary_key=True, index=True)
+    name = Columm(String(255), index=True)
+    cost = Columm(Integer)
+    photo_url = Columm(String(2083))
+    
     
