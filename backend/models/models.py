@@ -1,5 +1,6 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 
 from .database import Base
 
@@ -33,6 +34,9 @@ class Menu(Base):  # 메뉴 테이블 생성
     menu_name = Column(String(255), index=True)
     menu_cost = Column(Integer)
     menu_photo_url = Column(String(2083))
+    time_created_at = Column(DateTime(timezone=True), server_default=func.now())
+    time_updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
 
 
 class Order(Base):  # 메뉴 주문하기

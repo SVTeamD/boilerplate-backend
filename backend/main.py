@@ -55,3 +55,26 @@ def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return items
 
 
+########################################
+
+@app.post("/menus/", response_model = schemas.Menu) # menu_id는 누가 입력할지 -> 사장 or 자동
+def create_menu_info(menu: schemas.MenuCreate, db: Session = Depends(get_db)):
+    return crud.create_menuinfo(db, name = menu.menu_name)
+
+
+@app.get("/menus/", response_model=List[schemas.Menu])
+def read_menu_info(skip: int = 1, limit: int = 1000000, db: Session = Depends(get_db)):
+    menus = crud.get_menuinfo(db, skip=skip, limit=limit)
+    return menus
+
+
+# @app.post("/users/{menu_id}/menus/", response_model = schemas.Menu) # menu_id는 누가 입력할지 -> 사장 or 자동
+# def create_menu_info(menu: schemas.MenuCreate, db: Session = Depends(get_db)):
+#     return crud.create_menuinfo(db, name = menu.menu_name) #이게모지?
+    
+
+
+# @app.get("/users/{menu_id}/informations/", response_model = schemas.Menu) # 가게이름 검색시 메뉴정보 get
+# def get_search_menu_info(menu: schemas.MenuRead, db: Session = Depends(get_db)):
+#     search_menu = crud.get_search_menuinfo(db, skip = skip, limit = limit)
+#     return search_menu
