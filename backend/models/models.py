@@ -37,12 +37,46 @@ class Menu(Base):  # 메뉴 테이블 생성
     time_created_at = Column(DateTime(timezone=True), server_default=func.now())
     time_updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
-# class Order(Base):  # 메뉴 주문하기
-#     __tablename__ = "order"
 
-#     order_id = Column(Integer, primary_key=True, index=True)  # PK
-#     customer_id = Column(Integer, ForeignKey("customer_id"), index=True)  # FK1
-#     store_id = Column(Integer, ForeignKey("store_id"), index=True)  # FK2
-#     order_datetime = Column(Integer)
-#     order_is_takeout = Column(Boolean)
-#     order_cost = Column(Integer)
+
+class Order(Base):  # 메뉴 주문하기
+    __tablename__ = "orders"
+
+    order_id = Column(Integer, primary_key=True, index=True)  # PK
+    customer_id = Column(Integer, ForeignKey("customer_id"), index=True)  # FK1
+    store_id = Column(Integer, ForeignKey("store_id"), index=True)  # FK2
+    order_datetime = Column(Integer)
+    order_is_takeout = Column(Boolean)
+    order_cost = Column(Integer)
+
+
+class Category(Base):  # 가게 카테고리
+    __tablename__ = "categories"
+
+    category_id = Column(Integer, primary_key=True, index=True)  # PK
+    category_name = Column(String(255), index=True)
+
+
+class Merchant(Base):  # Merchant
+    __tablename__ = "merchants"
+
+    category_id = Column(Integer, primary_key=True, index=True)  # PK
+    user_id = Column(Integer, ForeignKey("user_id"), index=True)  # FK1
+
+
+class Customer(Base):  # Customer
+    __tablename__ = "Customers"
+
+    customer_id = Column(Integer, primary_key=True, index=True)  # PK
+    user_id = Column(Integer, ForeignKey("user_id"), index=True)  # FK1
+
+
+class User(Base):  # User
+    __tablename__ = "users"
+
+    user_id = Column(Integer, primary_key=True, index=True)  # PK
+    name = Column(String(255), index=True)
+    gender = Column(String(255), index=True)
+    age_range = Column(String(255), index=True)
+    phone_num = Column(Integer)
+    created_date = Column(Integer)
