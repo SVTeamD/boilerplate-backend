@@ -2,6 +2,7 @@ from typing import List
 
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
+from backend.models.models import Order
 
 from models import crud, models, schemas
 from models.database import SessionLocal, engine
@@ -54,7 +55,9 @@ def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = crud.get_items(db, skip=skip, limit=limit)
     return items
 
+# juwon_Order
 
+<<<<<<< main
 ########################################
 
 @app.post("/menus/", response_model = schemas.Menu) # menu_id는 누가 입력할지 -> 사장 or 자동
@@ -86,3 +89,17 @@ def delete_menu_by_name(menu_name: str, db: Session = Depends(get_db)):
     return response.status_code
 
 
+=======
+
+@app.get("/users/order/", response_model=schemas.Order)
+def read_order(order_id: int, db: Session = Depends(get_db)):
+    Order = crud.get_user(db, order_id=order_id)
+    return Order
+
+
+@app.post("/users/order/", response_model=schemas.Order)
+def create_order(
+    order_id: int, item: schemas.ItemCreate, db: Session = Depends(get_db)
+):
+    return crud.create_user_item(db=db, item=item, order_id=order_id)
+>>>>>>> feat: start writing order api

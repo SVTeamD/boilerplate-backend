@@ -26,7 +26,8 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
 
 def create_user(db: Session, user: schemas.UserCreate):
     fake_hashed_password = user.password + "notreallyhashed"
-    db_user = models.User(email=user.email, hashed_password=fake_hashed_password)
+    db_user = models.User(
+        email=user.email, hashed_password=fake_hashed_password)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
@@ -44,6 +45,7 @@ def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
     db.refresh(db_item)
     return db_item
 
+<<<<<<< main
 #################추가###################################################################
 
 def get_menu(db: Session): # 사용자가 메뉴정보 등록한 값들 잘 들어갔는지 보여줌
@@ -72,3 +74,22 @@ def delete_menu(db: Session, menu_name: str): # 사용자가 메뉴이를 삭제
     db.delete(menu)
     db.commit()
     return Response(status_code = HTTP_204_NO_CONTENT)
+=======
+#############################################################################
+
+
+def get_order(db: Session, order_id: str):
+    return db.query(models.User).filter(models.User.email == order_id).first()
+
+
+def create_order(db: Session, order: schemas.OrderCreate):
+    db_order = models.User(email=order.dict())
+    db.add(db_order)
+    db.commit()
+    db.refresh(db_order)
+    return db_order
+
+
+def delete_order(db: Session, order: schemas.OrderDelete):
+    ...
+>>>>>>> feat: start writing order api
