@@ -1,6 +1,7 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy.types import TIMESTAMP
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func, text
 
 from .database import Base
 
@@ -30,12 +31,12 @@ class Item(Base):
 class Menu(Base):  # 메뉴 테이블 생성
     __tablename__ = "menus"
 
-    menu_id = Column(Integer, primary_key=True, index=True)
-    menu_name = Column(String(255), index=True)
-    menu_cost = Column(Integer)
-    menu_photo_url = Column(String(2083))
-    time_created_at = Column(DateTime(timezone=True), server_default=func.now())
-    time_updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255), index=True)
+    cost = Column(Integer)
+    photo_url = Column(String(2083))
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))
 
 
 

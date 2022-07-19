@@ -59,22 +59,30 @@ def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 
 @app.post("/menus/", response_model = schemas.Menu) # menu_id는 누가 입력할지 -> 사장 or 자동
 def create_menu_info(menu: schemas.MenuCreate, db: Session = Depends(get_db)):
-    return crud.create_menuinfo(db, name = menu.menu_name)
+    return crud.create_menu(db, menu = menu)
 
 
 @app.get("/menus/", response_model=List[schemas.Menu])
-def read_menu_info(skip: int = 1, limit: int = 1000000, db: Session = Depends(get_db)):
-    menus = crud.get_menuinfo(db, skip=skip, limit=limit)
+def read_menu_info(skip: int = 1, limit: int = 10, db: Session = Depends(get_db)):
+    menus = crud.get_menu(db)
     return menus
 
 
-# @app.post("/users/{menu_id}/menus/", response_model = schemas.Menu) # menu_id는 누가 입력할지 -> 사장 or 자동
-# def create_menu_info(menu: schemas.MenuCreate, db: Session = Depends(get_db)):
-#     return crud.create_menuinfo(db, name = menu.menu_name) #이게모지?
-    
+@app.get("/menus/{menu_id}/")
+def read_menu_by_id(menu_id: int, db: Session = Depends(get_db)):
+    menus = crud.get_menu_by_id(db, menu_id=menu_id)
+    return menus
 
 
-# @app.get("/users/{menu_id}/informations/", response_model = schemas.Menu) # 가게이름 검색시 메뉴정보 get
-# def get_search_menu_info(menu: schemas.MenuRead, db: Session = Depends(get_db)):
-#     search_menu = crud.get_search_menuinfo(db, skip = skip, limit = limit)
-#     return search_menu
+@app.get("/menus/name/{menu_name}/")
+def read_menu_by_name(menu_name: str, db: Session = Depends(get_db)):
+    menus = crud.get_menu_by_name(db, menu_name=menu_name)
+    return menus
+
+
+@app.delete("/menus/{menu_name}")
+def delete_menu_by_name(menu_name: str, db: Session = Depends(get_db)):
+    response = crud.delete_menu(db, menu_name = menu_name)
+    return response.status_code
+
+
