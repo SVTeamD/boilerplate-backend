@@ -1,7 +1,10 @@
 from typing import List, Union
 <<<<<<< main
+<<<<<<< main
 =======
 from xmlrpc.client import boolean
+=======
+>>>>>>> feat: write order_api and change models.py's order
 
 >>>>>>> feat: order_api schemas
 from pydantic import BaseModel
@@ -81,14 +84,14 @@ class OrderBase(BaseModel):
     customer_id: int
     store_id: int
 
-    class Config:
-        orm_mode = True
-
 
 class Order(OrderBase):
     order_datetime: int
-    order_is_takeout: boolean
+    order_is_takeout: bool
     order_cost: int
+
+    class Config:
+        orm_mode = True
 
 
 class OrderCreate(Order):

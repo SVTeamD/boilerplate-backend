@@ -9,6 +9,7 @@ import datetime
 from . import models, schemas
 
 
+<<<<<<< main
 
  
 
@@ -23,28 +24,24 @@ def get_user_by_email(db: Session, email: str):
 def get_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.User).offset(skip).limit(limit).all()
 
-
-def create_user(db: Session, user: schemas.UserCreate):
-    fake_hashed_password = user.password + "notreallyhashed"
-    db_user = models.User(
-        email=user.email, hashed_password=fake_hashed_password)
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
+=======
+#############################################################################
+>>>>>>> feat: write order_api and change models.py's order
 
 
-def get_items(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Item).offset(skip).limit(limit).all()
+# def get_orderinfo(db: Session, order_id: str):
+#     return db.query(models.Order).filter(models.User.email == order_id).first()
 
 
-def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
-    db_item = models.Item(**item.dict(), owner_id=user_id)
-    db.add(db_item)
-    db.commit()
-    db.refresh(db_item)
-    return db_item
+# def create_order(db: Session, order: schemas.OrderCreate):
+#     db_order = models.User(email=order.dict())
+#     db.add(db_order)
+#     db.commit()
+#     db.refresh(db_order)
+#     return db_order
 
+
+<<<<<<< main
 <<<<<<< main
 #################추가###################################################################
 
@@ -76,20 +73,39 @@ def delete_menu(db: Session, menu_name: str): # 사용자가 메뉴이를 삭제
     return Response(status_code = HTTP_204_NO_CONTENT)
 =======
 #############################################################################
+=======
+# def delete_order(db: Session, order: schemas.OrderDelete):
+#     ...
+# 사용자가 주문 확인할떄 주문내역 보여줌
+def get_order(db: Session, skip: int = 1, limit: int = 10):
+    return db.query(models.Order).offset(skip).limit(limit).all()
+>>>>>>> feat: write order_api and change models.py's order
 
 
-def get_order(db: Session, order_id: str):
-    return db.query(models.User).filter(models.User.email == order_id).first()
+# 사용자가 주문페이지로 가면 주문 정보를 자동으로 보여줌 + 업주 측 페이지로 주문 접수시 필요
+def get_order_by_id(db: Session, order_id: int):
+    return db.query(models.Order).filter(models.Order.order_id == order_id).first()
 
 
+# 사용자가 입력한 정보들을 order 테이블에 json형식으로 넣어줌
 def create_order(db: Session, order: schemas.OrderCreate):
-    db_order = models.User(email=order.dict())
+    db_order = models.Order(customer_id=order.customer_id, store_id=order.store_id,
+                            order_datetime=order.order_datetime, order_is_takeout=order.order_is_takeout, order_cost=order.order_cost)
     db.add(db_order)
     db.commit()
     db.refresh(db_order)
     return db_order
 
 
+<<<<<<< main
 def delete_order(db: Session, order: schemas.OrderDelete):
     ...
 >>>>>>> feat: start writing order api
+=======
+def delete_order(db: Session, order_id: int):  # 사용자가 order id를 삭제하면 주문내역 삭제됨
+    order = db.query(models.Order).filter_by(
+        models.Order.order_id == order_id).first()
+    db.delete(order)
+    db.commit()
+    return Response(status_code=HTTP_204_NO_CONTENT)
+>>>>>>> feat: write order_api and change models.py's order
