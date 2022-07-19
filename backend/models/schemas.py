@@ -1,7 +1,6 @@
 from typing import List, Union
-
 from pydantic import BaseModel
-
+from sqlalchemy.types import TIMESTAMP
 
 class ItemBase(BaseModel):
     title: str
@@ -35,7 +34,6 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
-
 
 # juwon
 class OrderBase(BaseModel):
@@ -73,3 +71,33 @@ class OrderDelete(Order):
 #     order_datetime = Column(Integer)
 #     order_is_takeout = Column(Boolean)
 #     order_cost = Column(Integer)
+
+###############추가
+### s3s는 따로 안만들어도 ㄱㅊ // 그럼 s3는 함수에서 url경로 넣고 작성
+class MenuBase(BaseModel): # Menu클래스들의 근간
+    # id: int
+    ...
+
+class MenuCreate(MenuBase): # post
+    name: str
+    cost: int
+    photo_url: str
+
+class MenuRead(MenuCreate): # get
+    pass
+class MenuUpdate(MenuBase): # put
+    cost: int
+
+class MenuDelete(MenuBase): # delete
+    pass
+
+class Menu(MenuBase): # menu table 값들을 다 넣어줌
+    name: str
+    cost: int
+    photo_url: str
+    # created_at: str
+    # updated_at: str
+
+    class Config:
+        orm_mode = True
+

@@ -46,3 +46,31 @@ def create_order_info(order: schemas.OrderCreate, db: Session = Depends(get_db))
 def read_order_info(skip: int = 1, limit: int = 10, db: Session = Depends(get_db)):
     orders = crud.get_order(db)
     return orders
+
+@app.post("/menus/", response_model = schemas.Menu) # menu_id는 누가 입력할지 -> 사장 or 자동
+def create_menu_info(menu: schemas.MenuCreate, db: Session = Depends(get_db)):
+    return crud.create_menu(db, menu = menu)
+
+
+@app.get("/menus/", response_model=List[schemas.Menu])
+def read_menu_info(skip: int = 1, limit: int = 10, db: Session = Depends(get_db)):
+    menus = crud.get_menu(db)
+    return menus
+
+
+@app.get("/menus/{menu_id}/")
+def read_menu_by_id(menu_id: int, db: Session = Depends(get_db)):
+    menus = crud.get_menu_by_id(db, menu_id=menu_id)
+    return menus
+
+
+@app.get("/menus/name/{menu_name}/")
+def read_menu_by_name(menu_name: str, db: Session = Depends(get_db)):
+    menus = crud.get_menu_by_name(db, menu_name=menu_name)
+    return menus
+
+
+@app.delete("/menus/{menu_name}")
+def delete_menu_by_name(menu_name: str, db: Session = Depends(get_db)):
+    response = crud.delete_menu(db, menu_name = menu_name)
+    return response.status_code

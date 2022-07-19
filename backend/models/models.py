@@ -1,5 +1,7 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy.types import TIMESTAMP
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func, text
 
 from .database import Base
 
@@ -18,10 +20,13 @@ class User(Base):  # User
 class Menu(Base):  # 메뉴 테이블 생성
     __tablename__ = "menus"
 
-    menu_id = Column(Integer, primary_key=True, index=True)
-    menu_name = Column(String(255), index=True)
-    menu_cost = Column(Integer)
-    menu_photo_url = Column(String(2083))
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255), index=True)
+    cost = Column(Integer)
+    photo_url = Column(String(2083))
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))
+
 
 
 class Category(Base):  # 가게 카테고리
