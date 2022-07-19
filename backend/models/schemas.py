@@ -1,5 +1,4 @@
 from typing import List, Union
-from xmlrpc.client import boolean
 
 from pydantic import BaseModel
 
@@ -44,14 +43,14 @@ class OrderBase(BaseModel):
     customer_id: int
     store_id: int
 
-    class Config:
-        orm_mode = True
-
 
 class Order(OrderBase):
     order_datetime: int
-    order_is_takeout: boolean
+    order_is_takeout: bool
     order_cost: int
+
+    class Config:
+        orm_mode = True
 
 
 class OrderCreate(Order):
