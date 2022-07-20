@@ -20,14 +20,45 @@ def get_db():
         db.close()
 
 
-# juwon_Order
+# # juwon_Order
 
-<<<<<<< main
-########################################
 
-@app.post("/menus/", response_model = schemas.Menu) # menu_id는 누가 입력할지 -> 사장 or 자동
+# @app.get("/users/order/", response_model=schemas.Order)
+# def read_order(order_id: int, db: Session = Depends(get_db)):
+#     order = crud.get_user(db, order_id=order_id)
+#     return order
+
+
+# @app.post("/users/order/", response_model=schemas.Order)
+# def create_order(
+#     order_id: int, item: schemas.ItemCreate, db: Session = Depends(get_db)
+# ):
+#     return crud.create_user_item(db=db, item=item, order_id=order_id)
+
+
+# juwon_order
+@app.post("/orders/", response_model=schemas.Order)
+def create_order_info(order: schemas.OrderCreate, db: Session = Depends(get_db)):
+    return crud.create_order(db, order=order)
+
+
+@app.get("/orders/{order_id}/")
+def read_menu_by_id(order_id: int, db: Session = Depends(get_db)):
+    orders = crud.get_order_by_id(db, order_id=order_id)
+    return orders
+
+
+@app.delete("/orders/{store_id}")
+def delete_order_by_name(store_id: int, db: Session = Depends(get_db)):
+    response = crud.delete_order(db, ostore_id=store_id)
+    return response.status_code
+
+# menu_id는 누가 입력할지 -> 사장 or 자동
+
+
+@app.post("/menus/", response_model=schemas.Menu)
 def create_menu_info(menu: schemas.MenuCreate, db: Session = Depends(get_db)):
-    return crud.create_menu(db, menu = menu)
+    return crud.create_menu(db, menu=menu)
 
 
 @app.get("/menus/", response_model=List[schemas.Menu])
@@ -50,36 +81,5 @@ def read_menu_by_name(menu_name: str, db: Session = Depends(get_db)):
 
 @app.delete("/menus/{menu_name}")
 def delete_menu_by_name(menu_name: str, db: Session = Depends(get_db)):
-    response = crud.delete_menu(db, menu_name = menu_name)
+    response = crud.delete_menu(db, menu_name=menu_name)
     return response.status_code
-
-
-=======
-
-@app.get("/users/order/", response_model=schemas.Order)
-def read_order(order_id: int, db: Session = Depends(get_db)):
-    order = crud.get_user(db, order_id=order_id)
-    return order
-
-
-@app.post("/users/order/", response_model=schemas.Order)
-def create_order(
-    order_id: int, item: schemas.ItemCreate, db: Session = Depends(get_db)
-):
-    return crud.create_user_item(db=db, item=item, order_id=order_id)
-<<<<<<< main
->>>>>>> feat: start writing order api
-=======
-
-
-# juwon_order
-@app.post("/orders/", response_model=schemas.Order)
-def create_order_info(order: schemas.OrderCreate, db: Session = Depends(get_db)):
-    return crud.create_order(db, order=order)
-
-
-@app.get("/orders/{order_id}/", response_model=List[schemas.Order])
-def read_order_info(skip: int = 1, limit: int = 10, db: Session = Depends(get_db)):
-    orders = crud.get_order(db)
-    return orders
->>>>>>> feat: write order_api and change models.py's order

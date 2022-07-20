@@ -25,8 +25,8 @@ class Menu(Base):  # 메뉴 테이블 생성
     cost = Column(Integer)
     photo_url = Column(String(2083))
     created_at = Column(TIMESTAMP, server_default=func.now())
-    updated_at = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))
-
+    updated_at = Column(TIMESTAMP, server_default=text(
+        'CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))
 
 
 class Category(Base):  # 가게 카테고리
@@ -52,14 +52,6 @@ class Customer(Base):  # Customer
 class Order(Base):  # 메뉴 주문하기
     __tablename__ = "orders"
 
-<<<<<<< main
-    user_id = Column(Integer, primary_key=True, index=True)  # PK
-    name = Column(String(255), index=True)
-    gender = Column(String(255), index=True)
-    age_range = Column(String(255), index=True)
-    phone_num = Column(Integer)
-    created_date = Column(Integer)
-=======
     order_id = Column(Integer, primary_key=True, index=True)  # PK
     customer_id = Column(Integer, ForeignKey(
         Customer.customer_id), index=True)  # FK1
@@ -74,4 +66,3 @@ class Merchant(Base):  # Merchant
 
     merchant_id = Column(Integer, primary_key=True, index=True)  # PK
     user_id = Column(Integer, ForeignKey(User.user_id), index=True)  # FK1
->>>>>>> feat: write order_api and change models.py's order
