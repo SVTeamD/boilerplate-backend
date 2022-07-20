@@ -2,88 +2,93 @@ from typing import List, Union
 from pydantic import BaseModel
 from sqlalchemy.types import TIMESTAMP
 
-
-# class ItemBase(BaseModel):
-#     title: str
-#     description: Union[str, None] = None
+# juwon_user
 
 
-# class ItemCreate(ItemBase):
-#     pass
+class UserBase(BaseModel):
+    user_id: int
 
-
-# class Item(ItemBase):
-#     id: int
-#     owner_id: int
-
-#     class Config:
-#         orm_mode = True
-
-
-# class UserBase(BaseModel):
-#     email: str
-
-
-# class UserCreate(UserBase):
-#     password: str
-
-
-# class User(UserBase):
-#     id: int
-#     is_active: bool
-#     items: List[Item] = []
-
-#     class Config:
-#         orm_mode = True
-
-
-# juwon_order
-class OrderBase(BaseModel):
     class Config:
         orm_mode = True
 
-# juwon
-class OrderBase(BaseModel):
-    order_id: int
+
+class User(UserBase):
+    name: str
+    gender: str
+    age_range: str
+    phone_num: str
+    # created_at: str
+    # updated_at: str
+    # is_active: str
+
+
+class UserCreate(User):
+    pass
+
+
+class UserRead(User):
+    pass
+
+
+class UserDelete(User):
+    pass
+
+# juwon_customer
+
+
+class CustomerBase(BaseModel):
+    # customer_id: int
+
+    class Config:
+        orm_mode = True
+
+
+class Customer(CustomerBase):
+    user_id: int
     customer_id: int
-    store_id: int
-
-class OrderBase(BaseModel):
-    order_id: int
-    customer_id: int
-    store_id: int
-
-class Order(OrderBase):
-    order_datetime: int
-    order_is_takeout: bool
-    order_cost: int
-
-class Order(OrderBase):
-    order_datetime: int
-    order_is_takeout: bool
-    order_cost: int
 
 
-class OrderCreate(Order):
+class CustomerCreate(CustomerBase):
     pass
 
 
-class OrderRead(Order):
+class CustomerRead(CustomerBase):
     pass
 
 
-class OrderDelete(Order):
+class CustomerDelete(Customer):
     pass
 
-# 추가
-# s3s는 따로 안만들어도 ㄱㅊ // 그럼 s3는 함수에서 url경로 넣고 작성
+# juwon_merchant
+
+
+class MerchantBase(BaseModel):
+    merchant_id: int
+
+    class Config:
+        orm_mode = True
+
+
+class Merchant(MerchantBase):
+    user_id: int
+
+
+class MerchantCreate(Merchant):
+    pass
+
+
+class MerchantRead(Merchant):
+    pass
+
+
+class MerchantDelete(Merchant):
+    pass
 
 # hyun_Menu
 
 
 class MenuBase(BaseModel):  # Menu클래스들의 근간
-    # id: int
-    ...
+    id: int
 
 
 class MenuCreate(MenuBase):  # post
@@ -113,3 +118,40 @@ class Menu(MenuBase):  # menu table 값들을 다 넣어줌
 
     class Config:
         orm_mode = True
+
+# juwon_order
+
+
+# class OrderBase(BaseModel):
+#     class Config:
+#         orm_mode = True
+
+
+class OrderBase(BaseModel):
+    order_id: int
+    customer_id: int
+    store_id: int
+
+    class Config:
+        orm_mode = True
+
+
+class Order(OrderBase):
+    order_datetime: int
+    order_is_takeout: bool
+    order_cost: int
+
+
+class OrderCreate(Order):
+    pass
+
+
+class OrderRead(Order):
+    pass
+
+
+class OrderDelete(Order):
+    pass
+
+# 추가
+# s3s는 따로 안만들어도 ㄱㅊ // 그럼 s3는 함수에서 url경로 넣고 작성
