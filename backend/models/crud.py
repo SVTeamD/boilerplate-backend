@@ -70,8 +70,10 @@ def get_merchant_by_id(db: Session, merchant_id: int):
     return db.query(models.Merchant).filter(models.Merchant.merchant_id == merchant_id).first()
 
 
-def create_merchant(db: Session, merchant: schemas.MerchantCreate):
-    db_merchant = models.Merchant(merchant_id=merchant.merchant_id)
+def create_merchant(db: Session, merchant: schemas.MerchantCreate, user_id):
+    db_user = db.query(models.User).filter(
+        models.User.user_id == user_id).first()
+    db_merchant = models.Merchant(user_id=db_user.user_id)
     db.add(db_merchant)
     db.commit()
     return db_merchant

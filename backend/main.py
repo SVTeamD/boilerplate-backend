@@ -61,14 +61,14 @@ def delete_customer_by_id(customer_id: str, db: Session = Depends(get_db)):
 # juwon_merchant
 
 
-@app.post("/merchants/", response_model=schemas.Merchant)
-def create_merchant_info(merchant: schemas.MerchantCreate, db: Session = Depends(get_db)):
-    return crud.create_merchant(db, merchant=merchant)
+@app.post("/merchants/{user_id}", response_model=schemas.Merchant)
+def create_merchant_info(merchant: schemas.MerchantCreate, user_id, db: Session = Depends(get_db)):
+    return crud.create_merchant(db, user_id=user_id, merchant=merchant)
 
 
-@app.get("/merchants/{merchant_id}/")
-def read_merchant_by_id(merchant_id: int, db: Session = Depends(get_db)):
-    merchants = crud.get_merchant_by_id(db, merchant_id=merchant_id)
+@app.get("/merchants/{user_id}/")
+def read_merchant_by_id(user_id: int, db: Session = Depends(get_db)):
+    merchants = crud.get_merchant_by_id(db, user_id=user_id)
     return merchants
 
 
@@ -107,6 +107,44 @@ def read_menu_by_name(menu_name: str, db: Session = Depends(get_db)):
 @app.delete("/menus/{menu_name}/")
 def delete_menu_by_name(menu_name: str, db: Session = Depends(get_db)):
     response = crud.delete_menu(db, menu_name=menu_name)
+    return response.status_code
+
+# juwon_category
+
+
+@app.post("/category/", response_model=schemas.Category)
+def create_order_info(order: schemas.OrderCreate, db: Session = Depends(get_db)):
+    return crud.create_order(db, order=order)
+
+
+@app.get("/category/{category_id}/")
+def read_order_by_id(order_id: int, db: Session = Depends(get_db)):
+    orders = crud.get_order_by_id(db, order_id=order_id)
+    return orders
+
+
+@app.delete("/category/{category_id}/")
+def delete_order_by_name(order_id: int, db: Session = Depends(get_db)):
+    response = crud.delete_order(db, order_id=order_id)
+    return response.status_code
+
+# juwon_location
+
+
+@app.post("/orders/", response_model=schemas.Order)
+def create_order_info(order: schemas.OrderCreate, db: Session = Depends(get_db)):
+    return crud.create_order(db, order=order)
+
+
+@app.get("/orders/{order_id}/")
+def read_order_by_id(order_id: int, db: Session = Depends(get_db)):
+    orders = crud.get_order_by_id(db, order_id=order_id)
+    return orders
+
+
+@app.delete("/orders/{order_id}/")
+def delete_order_by_name(order_id: int, db: Session = Depends(get_db)):
+    response = crud.delete_order(db, order_id=order_id)
     return response.status_code
 
 # juwon_order

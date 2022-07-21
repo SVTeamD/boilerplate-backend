@@ -1,3 +1,5 @@
+from decimal import Decimal
+import string
 from typing import List, Union
 from pydantic import BaseModel
 from sqlalchemy.types import TIMESTAMP
@@ -37,7 +39,6 @@ class UserDelete(User):
 
 
 class CustomerBase(BaseModel):
-    # customer_id: int
 
     class Config:
         orm_mode = True
@@ -63,7 +64,6 @@ class CustomerDelete(Customer):
 
 
 class MerchantBase(BaseModel):
-    merchant_id: int
 
     class Config:
         orm_mode = True
@@ -71,13 +71,14 @@ class MerchantBase(BaseModel):
 
 class Merchant(MerchantBase):
     user_id: int
+    merchant_id: int
 
 
-class MerchantCreate(Merchant):
+class MerchantCreate(MerchantBase):
     pass
 
 
-class MerchantRead(Merchant):
+class MerchantRead(MerchantBase):
     pass
 
 
@@ -119,12 +120,58 @@ class Menu(MenuBase):  # menu table 값들을 다 넣어줌
     class Config:
         orm_mode = True
 
+# juwon_category
+
+
+class CategoryBase(BaseModel):
+    category_name: string
+
+    class Config:
+        orm_mode = True
+
+
+class Category(CategoryBase):
+    user_id: int
+
+
+class CategoryCreate(CategoryBase):
+    pass
+
+
+class CategoryRead(CategoryBase):
+    pass
+
+
+class CategoryDelete(CategoryBase):
+    pass
+
+# juwon_location
+
+
+class LocationBase(BaseModel):
+    latitude: Decimal
+    longitude: Decimal
+
+    class Config:
+        orm_mode = True
+
+
+class Location(LocationBase):
+    user_id: int
+
+
+class LocationCreate(LocationBase):
+    pass
+
+
+class LocationRead(LocationBase):
+    pass
+
+
+class LocationDelete(LocationBase):
+    pass
+
 # juwon_order
-
-
-# class OrderBase(BaseModel):
-#     class Config:
-#         orm_mode = True
 
 
 class OrderBase(BaseModel):
